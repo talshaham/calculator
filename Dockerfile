@@ -28,5 +28,5 @@ RUN jf c add $JFROG_SERVER_ID --interactive=false --url=$JFROG_IP --user=$JFROG_
 
 
 #Uplaod to factory
-RUN jf rt u Calculator-1.0-SNAPSHOT.jar tal-shaham
+RUN jf rt u Calculator-1.0-SNAPSHOT.jar tal-shaham/home
 
