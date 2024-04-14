@@ -1,4 +1,5 @@
 FROM maven:3.8.4
-COPY . .
+WORKDIR /project/
+COPY . /project
 RUN mvn package
 
