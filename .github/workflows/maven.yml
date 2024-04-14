@@ -36,17 +36,13 @@ jobs:
 
 
   scan_dockerfile:
-    needs: depchecktest
     runs-on: ubuntu-latest
-
+    needs: depchecktest
     steps:
-    - name: Build and scan image
-      uses: dentsusoken/build-and-scan-image@main
-      with:
-    # Path to base directory to run `docker build` command (default ".")
-        path: "."
-    # Path to Dockerfile, which is relative path from "path" parameter (default "Dockerfile")
-        dockerfile: Dockerfile
+      - uses: actions/checkout@v3
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
 
 
         
