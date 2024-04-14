@@ -45,6 +45,16 @@ jobs:
           dockerfile: Dockerfile
 
 
+  codacy-analysis-cli:
+    name: Codacy Analysis CLI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@main
+
+      - name: Run Codacy Analysis CLI
+        uses: codacy/codacy-analysis-cli-action@master
+
         
   build-upload-deploy:
     needs: scan_dockerfile
