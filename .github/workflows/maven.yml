@@ -35,9 +35,27 @@ jobs:
 
 
 
+  scan_dockerfile:
+    needs: depchecktest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: user/app:latest
+      -
+        name: Scan for vulnerabilities
+        uses: crazy-max/ghaction-container-scan@v3
+        with:
+          image: user/app:latest
+
         
   build-upload-deploy:
-
+    needs: scan_dockerfile
     runs-on: ubuntu-latest
 
     steps:
