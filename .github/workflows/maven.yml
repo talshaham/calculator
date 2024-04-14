@@ -38,20 +38,16 @@ jobs:
   scan_dockerfile:
     needs: depchecktest
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Build
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: user/app:latest
-      -
-        name: Scan for vulnerabilities
-        uses: crazy-max/ghaction-container-scan@v3
-        with:
-          image: user/app:latest
+    - name: Build and scan image
+      uses: dentsusoken/build-and-scan-image@main
+      with:
+    # Path to base directory to run `docker build` command (default ".")
+        path: "."
+    # Path to Dockerfile, which is relative path from "path" parameter (default "Dockerfile")
+        dockerfile: Dockerfile
+
 
         
   build-upload-deploy:
