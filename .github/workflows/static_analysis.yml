@@ -5,9 +5,9 @@ on:
     branches: [ "master" ]
 
 jobs:
-
   
   codacy-analysis-cli:
+    permissions: write-all
     name: Codacy Analysis CLI
     runs-on: ubuntu-latest
     steps:
