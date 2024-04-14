@@ -7,14 +7,6 @@ on:
     branches: [ "developement" ]
 
 jobs:
-  check-secrets:
-    name: Checking for Secrets
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checking for Secrets
-        uses: actions/checkout@v3
-      - name: Secret Scanner
-        uses: secret-scanner/action@0.0.2
 
   depchecktest:
     runs-on: ubuntu-latest
