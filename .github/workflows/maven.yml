@@ -59,6 +59,19 @@ jobs:
           
       - name: Increase version
         run: mvn versions:set -DnewVersion=1.0.${{github.run_number}}
+
+
+
+      - name: cosign-installer
+        uses: sigstore/cosign-installer@v2.0.0
+      - name: Sign the published Docker image
+        env:
+          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+        run: cosign sign --key cosign.key ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ github.run_id }}
+
+
+
+
         
       - name: login to dockerhub
         uses: docker/login-action@v3
