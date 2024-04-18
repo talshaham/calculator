@@ -56,23 +56,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
-          
-      - name: Increase version
-        run: mvn versions:set -DnewVersion=1.0.${{github.run_number}}
-
-
-
-      - name: cosign-installer
-        uses: sigstore/cosign-installer@v2.0.0
-      - name: Sign the published Docker image
-        env:
-          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-        run: cosign sign --key cosign.key ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ github.run_id }}
-
-
-
-
-        
+                 
       - name: login to dockerhub
         uses: docker/login-action@v3
         with:
@@ -87,3 +71,22 @@ jobs:
           build-args: VERSION=${{github.run_number}}
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/calculator:${{github.run_number}} , ${{ secrets.DOCKER_USERNAME }}/calculator:latest
+
+
+
+
+      - name: Increase version
+        run: mvn versions:set -DnewVersion=1.0.${{github.run_number}}
+
+      - name: cosign-installer
+        uses: sigstore/cosign-installer@v2.0.0
+      - name: Sign the published Docker image
+        env:
+          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+        run: cosign sign --key cosign.key ${{ secrets.DOCKER_USERNAME }}/calculator:${{github.run_number}}
+
+      - name: Write signing key to disk
+        run: 'echo "$KEY" > cosign.key'
+        shell: bash
+        env:
+          KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
