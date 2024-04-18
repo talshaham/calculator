@@ -85,7 +85,7 @@ jobs:
           KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
 
       - name: cosign-installer
-        uses: sigstore/cosign-installer@v2.0.0
+        uses: sigstore/cosign-installer@v3.5.0
       - name: Sign the published Docker image
         env:
           COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
