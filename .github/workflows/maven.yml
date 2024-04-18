@@ -83,7 +83,7 @@ jobs:
       - name: Sign the published Docker image
         env:
           COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-        run: cosign sign --key cosign.key ${{ secrets.DOCKER_USERNAME }}/calculator:${{github.run_number}}
+        run: cosign sign --key cosign.key talshaham/calculator:${{github.run_number}}
 
       - name: Write signing key to disk
         run: 'echo "$KEY" > cosign.key'
