@@ -92,3 +92,6 @@ jobs:
         run: cosign sign --key cosign.key talshaham/calculator:${{github.run_number}} -y
 
 
+      - name: Sign the published Docker image
+        run: cosign verify --key cosign.key talshaham/calculator:${{github.run_number}}
+
